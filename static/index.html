@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gmail Organizer</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tabulator-tables@6.3.1/dist/css/tabulator_simple.min.css">
+<link rel="stylesheet" href="/static/style.css">
+<script>window.APP = {token: "__TOKEN__", account: "__ACCOUNT__", showTo: "__SHOW_TO__", accounts: "__ACCOUNTS__"};</script>
+</head>
+<body>
+<header>
+  <div class="brand">Gmail Organizer <select id="account" aria-label="Account"></select></div>
+  <div class="status" id="status">Loading…</div>
+  <button id="refresh" class="primary">Refresh</button>
+  <button id="exit" title="Finish any Gmail work in progress, then stop the app">Exit</button>
+</header>
+
+<nav class="tabs">
+  <button data-tab="messages" class="active">Messages</button>
+  <button data-tab="stats">Stats</button>
+  <button data-tab="log">Action log</button>
+</nav>
+
+<section id="tab-messages" class="tab active">
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Search sender, subject…">
+    <div id="chips" class="chips"></div>
+    <button id="clear">Clear filters</button>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="toolbar actions">
+    <span class="group-label">Selected:</span>
+    <button id="arch-sel">Archive</button>
+    <button id="trash-sel" class="danger">Move to Trash</button>
+    <span class="sep"></span>
+    <span class="group-label">All shown:</span>
+    <button id="arch-all">Archive all shown</button>
+    <button id="trash-all" class="danger">Move all shown to Trash</button>
+    <span class="sep"></span>
+    <button id="mkfilter">Make Gmail filter…</button>
+    <button id="csv">Export CSV</button>
+  </div>
+  <div id="table"></div>
+</section>
+
+<section id="tab-stats" class="tab">
+  <div class="toolbar">
+    <label><input type="radio" name="scope" value="all" checked> Whole INBOX</label>
+    <label><input type="radio" name="scope" value="shown"> Only messages matching the current filter</label>
+    <span class="muted">Click any row to filter the Messages tab.</span>
+  </div>
+  <div id="tiles" class="tiles"></div>
+  <div class="panel wide"><h3>Messages per month</h3><div id="months" class="months"></div></div>
+  <div class="grid">
+    <div class="panel"><h3>Top sender domains</h3><div id="st-domain"></div></div>
+    <div class="panel"><h3>Top sender addresses</h3><div id="st-from"></div></div>
+    <div class="panel" id="panel-recipient"><h3>Top recipient addresses</h3><div id="st-recipient"></div></div>
+    <div class="panel"><h3>Top mailing lists</h3><div id="st-list"></div></div>
+    <div class="panel"><h3>Space used by sender domain</h3><div id="st-size"></div></div>
+    <div class="panel"><h3>Unread by sender domain</h3><div id="st-unread"></div></div>
+  </div>
+</section>
+
+<section id="tab-log" class="tab">
+  <p class="muted">Everything this app has changed in your INBOX. Undo puts exactly those messages back in INBOX.</p>
+  <table class="log"><thead><tr><th>When</th><th>Action</th><th>Messages</th><th>What</th><th></th></tr></thead>
+  <tbody id="log-body"></tbody></table>
+</section>
+
+<div id="modal" class="modal hidden"><div class="modal-box" id="modal-box"></div></div>
+
+<!-- Shown while a Gmail operation runs; covers the page so nothing else can be started. -->
+<div id="progress" class="modal progress hidden" role="alertdialog" aria-live="polite" aria-labelledby="progress-title">
+  <div class="modal-box">
+    <h2 id="progress-title">Working</h2>
+    <p id="progress-msg">Starting…</p>
+    <div id="progress-barwrap" class="barwrap hidden"><div id="progress-bar" class="bar"></div></div>
+    <p class="note"><span id="progress-time">0s</span></p>
+    <p id="progress-hint" class="note hidden">Taking a while? Stop is safe: it finishes the current small batch, then stops.
+      An archive or trash keeps (and logs) what it already moved, so you can Undo it.</p>
+    <div class="buttons">
+      <button id="progress-exit" title="Stop this operation and shut the app down">Stop and exit app</button>
+      <button id="progress-stop" class="primary">Stop</button>
+    </div>
+  </div>
+</div>
+<div id="tooltip" class="tooltip hidden"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

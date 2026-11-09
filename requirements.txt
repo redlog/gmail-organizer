@@ -1,0 +1,7 @@
+# Versions this app was tested with (Python 3.12)
+fastapi==0.162.2
+uvicorn[standard]==0.54.0
+pydantic==2.13.4
+keyring==25.7.0
+tldextract==5.4.0
+httpx==0.28.1

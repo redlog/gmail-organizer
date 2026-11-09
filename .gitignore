@@ -1,0 +1,21 @@
+# Private: old export script (contained an app password) and exported mail headers
+gmail_idx.py
+*.tsv
+*.csv
+mailFilters.xml
+
+# Secrets, just in case
+.env
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*~
