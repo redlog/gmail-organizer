@@ -92,7 +92,7 @@ Google password.
 Windows (Command Prompt):
 
 ```bat
-git clone https://github.com/<you>/gmail-organizer.git
+git clone https://github.com/redlog/gmail-organizer.git
 cd gmail-organizer
 py -3.12 -m venv .venv
 .venv\Scripts\activate.bat
@@ -102,7 +102,7 @@ pip install -r requirements.txt
 macOS / Linux:
 
 ```bash
-git clone https://github.com/<you>/gmail-organizer.git
+git clone https://github.com/redlog/gmail-organizer.git
 cd gmail-organizer
 python3 -m venv .venv
 source .venv/bin/activate
